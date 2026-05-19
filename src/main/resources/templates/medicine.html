@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<table border="1">
+		<tr>
+			<th>No</th>
+			<th>薬名</th>
+			<th>個数</th>
+			<th>飲んだかどうか</th>
+			<th>備考</th>
+			<th>更新</th>
+			<th>削除</th>
+
+		</tr>
+		<tr th:each="medicine:${medicine}">
+			<td th:text="${medicine.medicineId}"></td>
+			<td th:text="${medicine.medicineName}"></td>
+			<td th:text="${medicine.medicineCount}"></td>
+			<td>
+				<input type="radio" name="doornot" value="do"> 済
+				<input type="radio" name="doornot"value="not"> 未済
+			</td>
+			<td th:text="${medicine.medicineNote}"></td>
+			<td>
+				<button>更新</button>
+			</td>
+			<td>
+				<button>削除</button>
+			</td>
+			
+		</tr>
+	</table>
+				<form action="/medicine/add" method="post">
+
+						<button>追加</button>
+					</form>
+				
+</body>
+
+</html>
