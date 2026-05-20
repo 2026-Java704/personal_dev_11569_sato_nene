@@ -1,5 +1,5 @@
 INSERT INTO users (name, password)
- VALUES ('鈴木一郎', 'himitu'), ('佐藤悠介', 'okusuri'), ('田中愛子', 'check'),('田中愛子', 'check');
+ VALUES ('鈴木一郎', 'himitu'), ('佐藤悠介', 'okusuri'), ('田中愛子', 'check');
 
  INSERT INTO medicine (id, name, note, count,m_check, users_id)
   VALUES
