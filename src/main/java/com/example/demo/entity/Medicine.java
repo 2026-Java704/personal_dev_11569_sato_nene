@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,61 +14,61 @@ public class Medicine {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "medicine_id")
-	private Integer medicineId; // 薬ID
 
-	@Column(name = "medicine_name")
-	private String medicineName; // 薬名
+	private Integer id; // 薬ID
+	private String name; // 薬名
+	private String note; // 薬情報
+	private String count; // 服薬回数
+	private String m_check; // 服薬したかどうか
 
-	@Column(name = "medicine_note")
-	private String medicineNote; // 薬情報
-
-	@Column(name = "medicine_count")
-	private String medicineCount; // 服薬回数
-
-	@Column(name = "medicine_check")
-	private String medicineCheck; // 服薬したかどうか
-
-	//	ゲッター
-
-	public Integer getMedicineId() {
-		return medicineId;
+	public Medicine(String name, String note, String count, String m_check) {
+		this.name = name;
+		this.note = note;
+		this.count = count;
+		this.m_check = m_check;
 	}
 
-	public void setMedicineId(Integer medicineId) {
-		this.medicineId = medicineId;
+	public Medicine() {
 	}
 
-	public String getMedicineName() {
-		return medicineName;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setMedicineName(String medicineName) {
-		this.medicineName = medicineName;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public String getMedicineNote() {
-		return medicineNote;
+	public String getName() {
+		return name;
 	}
 
-	public void setMedicineNote(String medicineNote) {
-		this.medicineNote = medicineNote;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getMedicineCount() {
-		return medicineCount;
+	public String getNote() {
+		return note;
 	}
 
-	public void setMedicineCount(String medicineCount) {
-		this.medicineCount = medicineCount;
+	public void setNote(String note) {
+		this.note = note;
 	}
 
-	public String getMedicineCheck() {
-		return medicineCheck;
+	public String getCount() {
+		return count;
 	}
 
-	public void setMedicineCheck(String medicineCheck) {
-		this.medicineCheck = medicineCheck;
+	public void setCount(String count) {
+		this.count = count;
+	}
+
+	public String getM_check() {
+		return m_check;
+	}
+
+	public void setM_check(String m_check) {
+		this.m_check = m_check;
 	}
 
 }

@@ -18,8 +18,8 @@ public class MedicineController {
 		this.medicineRepository = medicineRepository;
 	}
 
-	// 薬一覧表示
-	@GetMapping("/")
+	//	 薬一覧表示
+	@GetMapping("/medicine")
 	public String index(Model model) {
 
 		// 全薬の一覧を取得

@@ -20,14 +20,14 @@
 
 		</tr>
 		<tr th:each="medicine:${medicine}">
-			<td th:text="${medicine.medicineId}"></td>
-			<td th:text="${medicine.medicineName}"></td>
-			<td th:text="${medicine.medicineCount}"></td>
+			<td th:text="${medicine.id}"></td>
+			<td th:text="${medicine.name}"></td>
+			<td th:text="${medicine.count}"></td>
 			<td>
 				<input type="radio" name="doornot" value="do"> 済
 				<input type="radio" name="doornot"value="not"> 未済
 			</td>
-			<td th:text="${medicine.medicineNote}"></td>
+			<td th:text="${medicine.note}"></td>
 			<td>
 				<button>更新</button>
 			</td>
