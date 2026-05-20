@@ -7,24 +7,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.demo.entity.Medicine;
+import com.example.demo.model.Account;
 import com.example.demo.repository.MedicineRepository;
 
 @Controller
 public class MedicineController {
 
 	private final MedicineRepository medicineRepository; //medicineテーブル操作用
+	private final Account account;
 
-	public MedicineController(MedicineRepository medicineRepository) {
+	public MedicineController(MedicineRepository medicineRepository, Account account) {
 		this.medicineRepository = medicineRepository;
+		this.account = account;
 	}
 
 	//	 薬一覧表示
 	@GetMapping("/medicine")
 	public String index(Model model) {
 
-		// 全薬の一覧を取得
-		List<Medicine> medicineList = medicineRepository.findAll();
-		model.addAttribute("medicine", medicineList);
+		//		User user = new User(1, "", "");
+
+		//				 全薬の一覧を取得 
+		List<Medicine> medicineList = medicineRepository.findByUserId(account.getId());
+		model.addAttribute("medicineList", medicineList);
 		return "medicine";
 	}
+
 }

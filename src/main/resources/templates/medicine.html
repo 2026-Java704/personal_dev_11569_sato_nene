@@ -8,6 +8,7 @@
 </head>
 
 <body>
+	<header th:replace="~{header}"></header>
 	<table border="1">
 		<tr>
 			<th>No</th>
@@ -19,7 +20,7 @@
 			<th>削除</th>
 
 		</tr>
-		<tr th:each="medicine:${medicine}">
+		<tr th:each="medicine:${medicineList}">
 			<td th:text="${medicine.id}"></td>
 			<td th:text="${medicine.name}"></td>
 			<td th:text="${medicine.count}"></td>

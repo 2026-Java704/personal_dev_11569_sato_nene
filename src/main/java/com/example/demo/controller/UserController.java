@@ -76,11 +76,30 @@ public class UserController {
 		User user = userList.get(0);
 
 		// セッション管理されたAccountにログインユーザー情報を保存
-		account.setId(user.getId());
+
 		account.setName(user.getName());
+		account.setId(user.getId());
 
 		// 薬一覧画面へ移動
 		return "redirect:/medicine";
 	}
 
+	// 会員登録画面の表示
+	@GetMapping("/user/add")
+	public String create() {
+		return "accountForm";
+	}
+
+	// 登録処理
+	@PostMapping("/user/add")
+	public String store(
+			@RequestParam String name,
+			@RequestParam String password,
+			Model model) {
+		User user = new User(name, password);
+		userRepository.save(user);
+
+		return "redirect:/login";
+
+	}
 }

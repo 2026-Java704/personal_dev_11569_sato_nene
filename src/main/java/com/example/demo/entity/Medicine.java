@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,12 +16,26 @@ public class Medicine {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private Integer id; // 薬ID
+
 	private String name; // 薬名
 	private String note; // 薬情報
 	private String count; // 服薬回数
 	private String m_check; // 服薬したかどうか
+
+	//	多対一の関係
+	@ManyToOne
+	@JoinColumn(name = "users_id")
+
+	private User user;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Medicine(String name, String note, String count, String m_check) {
 		this.name = name;
