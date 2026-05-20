@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Medicine;
 import com.example.demo.model.Account;
@@ -33,4 +35,23 @@ public class MedicineController {
 		return "medicine";
 	}
 
+	//	薬登録画面の表示
+	@GetMapping("/medicine/add")
+	public String create() {
+		return "addMedicine";
+
+	}
+
+	//
+	//薬登録処理
+	@PostMapping("/medicine/add")
+	public String store(
+			@RequestParam(defaultValue = "") String name,
+			@RequestParam(defaultValue = "") Integer count,
+			@RequestParam(defaultValue = "") String note) {
+
+		Medicine medicine = new Medicine();
+		return note;
+
+	}
 }
