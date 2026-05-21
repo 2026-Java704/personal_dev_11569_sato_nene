@@ -4,15 +4,18 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
 <body>
-
+	<header th:replace="~{header}"></header>
 	<h3>お客様情報</h3>
 	<form action="/user/add" method="post">
 		<ul th:if="${errorList}" class="error">
 			<li th:each="error:${errorList}" th:text="${error}"></li>
 		</ul>
+		
+		<p th:if="${message}" th:text="${message}" style="color: red;"></p>
 		<table border="1">
 			<tr>
 				<th>お名前</th>

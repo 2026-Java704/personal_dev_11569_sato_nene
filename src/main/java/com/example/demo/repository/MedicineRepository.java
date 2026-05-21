@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.entity.Medicine;
 
 public interface MedicineRepository extends JpaRepository<Medicine, Integer> {
-		List<Medicine> findByUserId(Integer userId);
+	List<Medicine> findByUserIdOrderById(Integer userId);
 }

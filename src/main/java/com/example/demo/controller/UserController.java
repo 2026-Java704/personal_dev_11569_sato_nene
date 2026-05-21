@@ -96,6 +96,29 @@ public class UserController {
 			@RequestParam String name,
 			@RequestParam String password,
 			Model model) {
+
+		// 前後の空白を除去
+		name = name.trim();
+		password = password.trim();
+
+		// 名前とパスワードの両方が空の場合
+		if (name.length() == 0 && password.length() == 0) {
+			model.addAttribute("message", "名前とパスワードを入力してください");
+			return "login";
+		}
+
+		// 名前が空の場合
+		if (name.length() == 0) {
+			model.addAttribute("message", "名前を入力してください");
+			return "accountForm";
+		}
+
+		// パスワードが空の場合
+		if (password.length() == 0) {
+			model.addAttribute("message", "パスワードを入力してください");
+			return "accountForm";
+		}
+
 		User user = new User(name, password);
 		userRepository.save(user);
 

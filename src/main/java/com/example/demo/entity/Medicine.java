@@ -20,8 +20,8 @@ public class Medicine {
 
 	private String name; // 薬名
 	private String note; // 薬情報
-	private String count; // 服薬回数
-	private String m_check; // 服薬したかどうか
+	private Integer count; // 服薬回数
+	private Boolean m_check; // 服薬したかどうか
 
 	//	多対一の関係
 	@ManyToOne
@@ -37,11 +37,12 @@ public class Medicine {
 		this.user = user;
 	}
 
-	public Medicine(String name, String note, String count, String m_check) {
+	public Medicine(String name, String note, Integer count, Boolean m_check, User user) {
 		this.name = name;
 		this.note = note;
 		this.count = count;
 		this.m_check = m_check;
+		this.user = user;
 	}
 
 	public Medicine() {
@@ -71,19 +72,19 @@ public class Medicine {
 		this.note = note;
 	}
 
-	public String getCount() {
+	public Integer getCount() {
 		return count;
 	}
 
-	public void setCount(String count) {
+	public void setCount(Integer count) {
 		this.count = count;
 	}
 
-	public String getM_check() {
+	public Boolean getM_check() {
 		return m_check;
 	}
 
-	public void setM_check(String m_check) {
+	public void setM_check(Boolean m_check) {
 		this.m_check = m_check;
 	}
 
