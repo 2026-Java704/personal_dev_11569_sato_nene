@@ -6,6 +6,7 @@ body {
 	/* 中央寄せ */
 	min-width: 900px;
 	/* 最小幅 */
+
 }
 
 /* ヘッダー、ナビゲーションメニュー、フッター */
@@ -20,6 +21,7 @@ footer {
 	/* 内側余白(上) */
 	padding-bottom: 5px;
 	/* 内側余白(下) */
+
 }
 
 /* ヘッダー、ナビゲーション内リンク */
@@ -60,12 +62,17 @@ th,
 td {
 	border-collapse: collapse;
 	border: 1px solid rgb(39, 39, 39);
+	padding: 10px 20px;
+	/* 上下10px、左右20pxの余白 */
 }
 
 /* 表 */
 table {
-	margin: 25px auto;
-	min-width: 500px;
+	margin: 20px auto;
+	width: 100%;
+	/* 画面幅の100% */
+	max-width: 800px;
+	/* 最大幅を指定して大きくなりすぎないようにする設定 */
 }
 
 /* 表見出しセル */
@@ -108,7 +115,25 @@ a {
 a:hover {
 	color: rgb(0, 0, 45);
 	/* ホバー時のリンクの色 */
+}
 
+footer {
+	background-color: rgb(192, 192, 131);
+	/* 背景色 */
+	color: rgb(36, 36, 36);
+	/* 文字色 */
+
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background: rab(188, 188, 122);
+}
+
+input[type=checkbox] {
+	-ms-transform: scale(1.5, 1.5);
+	-webkit-transform: scale(1.5, 1.5);
+	transform: scale(1.5, 1.5);
 }
 
 .page-a a {
@@ -123,22 +148,13 @@ a:hover {
 
 }
 
-body {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-	/* 画面の高さいっぱいに広げる */
-}
+.page-a body {
+	background-color: rgb(237, 247, 185);
+	/* 背景色  */
+	text-align: center;
+	/* 中央寄せ */
+	min-width: 900px;
+	/* 最小幅 */
+	font-size: 10pt;
 
-footer {
-	background-color: rgb(192, 192, 131);
-	/* 背景色 */
-	color: rgb(36, 36, 36);
-	/* 文字色 */
-
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	background: rab(188, 188, 122);
 }
