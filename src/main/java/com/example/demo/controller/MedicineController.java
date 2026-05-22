@@ -30,12 +30,22 @@ public class MedicineController {
 
 	//	 薬一覧表示
 	@GetMapping("/medicine")
-	public String index(Model model) {
+	public String index(@RequestParam(defaultValue = "") String keyword, Model model) {
 
-		//		User user = new User(1, "", "");
+		//		未ログイン時、ログイン画面に戻す。
+		if (account.getId() == null) {
+			return "redirect:/login";
+		}
+		List<Medicine> medicineList = null;
+		if (keyword.length() > 0) {
+			// medicineテーブルを商品名で部分一致検索
+			medicineList = medicineRepository.findByUserIdAndNameContaining(account.getId(), keyword);
+		} else {
+			medicineList = medicineRepository.findByUserIdOrderById(account.getId());
+		}
 
 		//	 全薬の一覧を取得 
-		List<Medicine> medicineList = medicineRepository.findByUserIdOrderById(account.getId());
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("medicineList", medicineList);
 		return "medicine";
 	}
@@ -43,6 +53,11 @@ public class MedicineController {
 	//	薬登録画面の表示
 	@GetMapping("/medicine/add")
 	public String create() {
+
+		//		未ログイン時、ログイン画面に戻す。
+		if (account.getId() == null) {
+			return "redirect:/login";
+		}
 		return "addMedicine";
 
 	}
@@ -79,7 +94,14 @@ public class MedicineController {
 			@PathVariable Integer id,
 			Model model) {
 
+		//		未ログイン時、ログイン画面に戻す。
+		if (account.getId() == null) {
+			return "redirect:/login";
+		}
 		Medicine medicine = medicineRepository.findById(id).get();
+		if (!medicine.getUser().getId().equals(account.getId())) {
+			return "redirect:/medicine";
+		}
 
 		model.addAttribute("medicine", medicine);
 		return "editMedicine";
@@ -108,6 +130,10 @@ public class MedicineController {
 	//	削除処理
 	@PostMapping("/medicine/{id}/delete")
 	public String delete(@PathVariable Integer id) {
+		Medicine medicine = medicineRepository.findById(id).get();
+		if (!medicine.getUser().getId().equals(account.getId())) {
+			return "redirect:/medicine";
+		}
 
 		medicineRepository.deleteById(id);//medicineテーブルから削除
 		return "redirect:/medicine";

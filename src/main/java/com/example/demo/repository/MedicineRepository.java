@@ -8,4 +8,6 @@ import com.example.demo.entity.Medicine;
 
 public interface MedicineRepository extends JpaRepository<Medicine, Integer> {
 	List<Medicine> findByUserIdOrderById(Integer userId);
+
+	List<Medicine> findByUserIdAndNameContaining(Integer userId, String name);
 }

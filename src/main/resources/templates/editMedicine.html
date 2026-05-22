@@ -10,7 +10,6 @@
 
 <body>
 	<header th:replace="~{header}"></header>
-<!--	<h1>編集</h1>-->
 
 	<form th:action="@{/medicine/{medicineId}/edit(medicineId=${medicine.id})}" method="post">
 		
@@ -24,7 +23,7 @@
 			</tr>
 			
 			<tr>
-				<th>回数</th>
+				<th>個数</th>
 				<td>
 					<input type="text" name="count" th:value="${medicine.count}">
 				</td>
@@ -39,6 +38,7 @@
 		</table>
 		<button>更新</button>
 	</form>
+	<footer th:replace="~{footer}"></footer>
 </body>
 
 </html>

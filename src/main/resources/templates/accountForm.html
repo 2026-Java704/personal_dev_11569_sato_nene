@@ -11,11 +11,12 @@
 	<header th:replace="~{header}"></header>
 	<h3>お客様情報</h3>
 	<form action="/user/add" method="post">
+		
 		<ul th:if="${errorList}" class="error">
-			<li th:each="error:${errorList}" th:text="${error}"></li>
+			<li th:each="error:${errorList}" th:text="${error}"style="color: red;"></li>
 		</ul>
 		
-		<p th:if="${message}" th:text="${message}" style="color: red;"></p>
+
 		<table border="1">
 			<tr>
 				<th>お名前</th>
@@ -33,7 +34,7 @@
 		<button>登録</button>
 	</form>
 	</main>
-
+	<footer th:replace="~{footer}"></footer>
 </body>
 
 </html>

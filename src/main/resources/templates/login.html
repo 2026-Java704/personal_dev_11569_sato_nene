@@ -8,13 +8,14 @@
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
-<body>
+<body class="page-a">
 	<header>
 		<h1>お薬チェッカー</a></h1>
 		
 	</header>
 
-	・ログインをしてください
+	<p></p>
+	
 	<ul th:if="${errorList}" class="error">
 		<li th:each="error:${errorList}" th:text="${error}"></li>
 	</ul>
@@ -22,19 +23,21 @@
 
 	<form action="/login" method="post">
 		<div>
-			<label>名前</label>
+			<label>ユーザー名：</label>
 			<input type="text" name="name">
 		</div>
 
 		<div>
-			<label>パスワード</label>
+			<label>パスワード：</label>
 			<input type="password" name="password">
 		</div>
 
 		<button type="submit">ログイン</button>
 	</form>
 
-	<a href="/user/add">新規会員登録はこちら</a>
+	<a href="/user/add">新規会員登録はこちら・・・</a>
+	
+	<footer th:replace="~{footer}"></footer>
 </body>
 
 </html>

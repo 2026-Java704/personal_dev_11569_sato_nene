@@ -1,20 +1,33 @@
 /* 全体 */
 body {
-	background-color: rgb(237, 247, 185); /* 背景色  */
-	text-align: center; /* 中央寄せ */
-    min-width: 900px; /* 最小幅 */
+	background-color: rgb(237, 247, 185);
+	/* 背景色  */
+	text-align: center;
+	/* 中央寄せ */
+	min-width: 900px;
+	/* 最小幅 */
 }
+
 /* ヘッダー、ナビゲーションメニュー、フッター */
-header, nav, footer {
-	background-color: rgb(188, 188, 122); /* 背景色 */
-	color: rgb(36, 36, 36); /* 文字色 */
-	padding-top: 5px; /* 内側余白(上) */
-	padding-bottom: 5px; /* 内側余白(下) */
+header,
+nav,
+footer {
+	background-color: rgb(192, 192, 131);
+	/* 背景色 */
+	color: rgb(36, 36, 36);
+	/* 文字色 */
+	padding-top: 5px;
+	/* 内側余白(上) */
+	padding-bottom: 5px;
+	/* 内側余白(下) */
 }
+
 /* ヘッダー、ナビゲーション内リンク */
-header a, nav a {
+header a,
+nav a {
 	color: #ffffff;
 }
+
 /* ヘッダー内見出し */
 header h1 {
 	font-size: 20pt;
@@ -22,52 +35,110 @@ header h1 {
 }
 
 header p {
-	
+
 	font-size: 10pt;
 }
+
+
+
 
 /* 仕切り線 */
 hr {
 	border-top: 2px dashed rgb(39, 39, 39);
 }
+
 /* メイン */
 main {
 	background-color: #FFFFFF;
 	min-height: 50px;
 	padding: 20px;
 }
+
 /* 表線 */
-table, th, td {
+table,
+th,
+td {
 	border-collapse: collapse;
 	border: 1px solid rgb(39, 39, 39);
 }
+
 /* 表 */
 table {
-    margin: 25px auto;
-    min-width: 500px;
+	margin: 25px auto;
+	min-width: 500px;
 }
+
 /* 表見出しセル */
 table th {
 	background: rgb(154, 154, 78);
 	color: #ffffff;
 }
+
 /* 送信ボタン */
 button {
-	margin: 2px;
+	margin: 15px;
 	padding: 5px 20px;
 	background-color: rgb(0, 0, 55);
 	color: #ffffff;
 	border: none;
-	width:150px;
+	width: 100px;
 	cursor: pointer;
 }
+
 /* 送信ボタン(マウスオーバー時) */
 button:hover {
-	background-color: rgb(210, 210, 210);
+	background-color: rgb(88 187 216 / 64%);
 }
+
 /* エラーメッセージ */
 ul.error {
 	color: red;
 	list-style: none;
 	padding-left: 0;
+}
+
+/* リンクの通常状態のスタイル */
+a {
+	color: #0066cc;
+	/* 通常時のリンクの色 */
+
+}
+
+/*リンクマウスオーバー（ホバー）した時のスタイル */
+a:hover {
+	color: rgb(0, 0, 45);
+	/* ホバー時のリンクの色 */
+
+}
+
+.page-a a {
+	color: #ff5722;
+	/* リンク色 */
+}
+
+/*リンクマウスオーバー（ホバー）した時のスタイル */
+.page-a a:hover {
+	color: rgb(0, 0, 45);
+	/* ホバー時のリンクの色 */
+
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	/* 画面の高さいっぱいに広げる */
+}
+
+footer {
+	background-color: rgb(192, 192, 131);
+	/* 背景色 */
+	color: rgb(36, 36, 36);
+	/* 文字色 */
+
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background: rab(188, 188, 122);
 }

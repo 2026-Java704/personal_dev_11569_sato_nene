@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -101,27 +102,42 @@ public class UserController {
 		name = name.trim();
 		password = password.trim();
 
-		// 名前とパスワードの両方が空の場合
-		if (name.length() == 0 && password.length() == 0) {
-			model.addAttribute("message", "名前とパスワードを入力してください");
-			return "login";
-		}
+		// エラーチェック
+		List<String> errorList = new ArrayList<>();
 
 		// 名前が空の場合
 		if (name.length() == 0) {
-			model.addAttribute("message", "名前を入力してください");
-			return "accountForm";
+			errorList.add("名前を入力してください");
 		}
 
 		// パスワードが空の場合
 		if (password.length() == 0) {
-			model.addAttribute("message", "パスワードを入力してください");
+			errorList.add("パスワードを入力してください");
+		}
+		// 名前とパスワードの両方が空の場合
+		if (name.length() == 0 && password.length() == 0) {
+			//			errorList.add("名前とパスワードを入力してください");
+
+		}
+
+		//ユーザー名重複チェック
+		List<User> userList = userRepository.findByName(name);
+
+		if (userList != null && userList.size() > 0) {
+			errorList.add("登録済みのユーザー名です");
+		}
+
+		//エラー発生時に登録画面に戻す
+		if (errorList.size() > 0) {
+			model.addAttribute("errorList", errorList);
+			model.addAttribute("name", name);
+
 			return "accountForm";
+
 		}
 
 		User user = new User(name, password);
 		userRepository.save(user);
-
 		return "redirect:/login";
 
 	}
