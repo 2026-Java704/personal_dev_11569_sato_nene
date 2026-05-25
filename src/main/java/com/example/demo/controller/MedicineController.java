@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -68,14 +70,39 @@ public class MedicineController {
 	public String store(
 			@RequestParam(defaultValue = "") String name,
 			@RequestParam(defaultValue = "") Integer count,
-			@RequestParam(defaultValue = "") String note) {
+			@RequestParam(defaultValue = "") String note,
+			@RequestParam(defaultValue = "") LocalDate date,
+			@RequestParam(defaultValue = "") String time,
+			Model model) {
+		List<String> errorList = new ArrayList<>();
+
+		if (name.length() == 0) {
+			errorList.add("薬名は必須です。");
+		}
+
+		if (count == null) {
+			errorList.add("個数は必須です。");
+		}
+		if (date == null) {
+			errorList.add("日付は必須です。");
+		}
+		if (errorList.size() > 0) {
+
+			model.addAttribute("errorList", errorList);
+			model.addAttribute("name", name);
+			model.addAttribute("count", count);
+			model.addAttribute("date", date);
+			return "addMedicine";
+
+		}
 
 		Medicine medicine = new Medicine();//新しい Medicineオブジェクト薬データを入れる箱
 
 		medicine.setName(name);//フォームから受け取った name を、Medicineオブジェク
 		medicine.setCount(count);
 		medicine.setNote(note);
-
+		medicine.setDate(date);
+		medicine.setTime(time);
 		medicine.setM_check(false);
 
 		//ログイン中のユーザーをセット
@@ -114,13 +141,15 @@ public class MedicineController {
 			@PathVariable Integer id,
 			@RequestParam String name,
 			@RequestParam Integer count,
-			@RequestParam String note) {
+			@RequestParam String note,
+			@RequestParam LocalDate date) {
 
 		Medicine medicine = medicineRepository.findById(id).get();
 
 		medicine.setName(name);
 		medicine.setCount(count);
 		medicine.setNote(note);
+		medicine.setDate(date);
 
 		medicineRepository.save(medicine);
 
@@ -154,6 +183,18 @@ public class MedicineController {
 			return "redirect:/medicine";
 		}
 		//
+	}
+
+	//	 薬一覧表示
+	@GetMapping("/manage")
+	public String index() {
+
+		//		未ログイン時、ログイン画面に戻す。
+		if (account.getId() == null) {
+			return "redirect:/login";
+		}
+		return "manage";
+
 	}
 
 }

@@ -1,38 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
+
 <body>
 	<header th:replace="~{header}"></header>
 
-		<form action="/medicine/add" method="post">
-			<table border="1">
-				<tr>
-					<th>薬名</th>
-					<td>
-						<input type="text" name="name">
-					</td>
-				</tr>
-				<tr>
-					<th>個数</th>
-					<td>
-						<input type="text" name="count">
-					</td>
-				</tr>
-				<tr>
-					<th>備考</th>
-					<td>
-						<input type="text" name="note">
-					</td>
-				</tr>
-			</table>
+	<form action="/medicine/add" method="post">
+		<div th:each="error:${errorList}">
+			<span th:text="${error}" style="color: red"></span>
+		</div>
+		<table border="1">
+			<tr>
+				<th>薬名</th>
+				<td>
+					<input type="text" class="text" name="name" th:value="${name}" placeholder="薬名"
+						style="width: 200px; height: 30px;">
+				</td>
+			</tr>
+			<tr>
+				<th>個数</th>
+				<td>
+					<input type="number" class="text" name="count" th:value="${count}"
+						style="width: 200px; height: 30px;">
+				</td>
+			</tr>
+			<tr>
+				<th>備考</th>
+				<td>
+					<input type="text" class="text" name="note" placeholder="備考 ex)1日何錠など"
+						style="width: 200px; height: 30px;">
+				</td>
+			</tr>
+			<tr>
+				<th>日付</th>
+				<td>
+					<input type="date" class="text" name="date" th:value="${date}" style="width: 200px; height: 30px;">
+				</td>
+			</tr>
+			<tr>
+				<th>時間</th>
+				<td>
+					<input type="time" name="time" min="06:00" max="24:00"th:value="${time}" >
+				</td>
+			</tr>
+		</table>
 
-			<button>登録</button>
-		</form>
-		<footer th:replace="~{footer}"></footer>
+		<button>登録</button>
+	</form>
+	<footer th:replace="~{footer}"></footer>
 </body>
+
 </html>

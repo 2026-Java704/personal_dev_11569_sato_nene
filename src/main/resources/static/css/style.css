@@ -1,138 +1,110 @@
-/* 全体 */
-body {
-	background-color: rgb(237, 247, 185);
-	/* 背景色  */
-	text-align: center;
-	/* 中央寄せ */
-	min-width: 900px;
-	/* 最小幅 */
+body {						
+background-color: rgb(255, 255, 198); /* 明るい緑 */						
+text-align: center;						
+min-width: 900px;						
+margin:	0 0 0 0 ;
+font-family: "Yu Gothic", sans-serif;						
+}						
+/* ===== ログイン画面用コンテナ ===== */						
+.login-container {						
+width: 500px;						
+margin: 80px auto;						
+background-color: #ffffff;						
+box-shadow: 0 0 10px rgba(0,0,0,0.2);						
+padding-bottom: 20px;						
+}						
+/* ===== ヘッダー、ナビ、フッター ===== */						
+header,						
+nav,						
+footer {						
+background-color:rgb(146, 157, 188);						
+color: #ffffff;						
+padding-top: 5px;						
+padding-bottom: 5px;
+margin-bottom: 10px
+						
+}						
+/* ===== ヘッダー、ナビ内リンク ===== */						
+header a,						
+nav a {						
+color: #ffffff;						
+}						
+/* ===== 見出し ===== */						
+header h1 {						
+font-size: 32pt; /* 大きく */						
+text-align: center; /* 真ん中 */						
+margin: 15px auto;						
+}						
+/* ===== 仕切り線 ===== */						
+hr {						
+border-top: 2px dashed #7d8bae;						
+}						
+/* ===== メイン ===== */						
+main {						
+background-color: #FFFFFF;						
+min-height: 50px;						
+padding: 20px;						
+}						
+/* ===== 表 ===== */						
+table,						
+th,						
+td {						
+border-collapse: collapse;						
+border: 1px solid rgb(91, 91, 91);						
+}						
+/* ===== 表全体 ===== */						
+table {						
+margin: 15px auto;						
+min-width: 800px;						
+}						
+/* ===== 表ヘッダー ===== */						
+table th {						
+background-color:rgb(146, 157, 188);						
+color: #ffffff;						
+text-align: center;						
+padding: 10px;						
+}						
+/* ===== 表データ ===== */						
+table td {						
+text-align: center;						
+padding: 10px;						
+}						
+/* ===== ボタン ===== */						
+button {						
+margin: 2px;						
+padding: 5px 20px;						
+background-color: #e5857b;						
+color: #ffffff;						
+border: none;						
+width: 150px;						
+cursor: pointer;
+border-radius: 5px;						
+}						
+/* ===== ボタン hover ===== */						
+button:hover {						
+background-color: rgb(244, 193, 193);						
+}	
 
-}
-
-/* ヘッダー、ナビゲーションメニュー、フッター */
-header,
-nav,
-footer {
-	background-color: rgb(192, 192, 131);
-	/* 背景色 */
-	color: rgb(36, 36, 36);
-	/* 文字色 */
-	padding-top: 5px;
-	/* 内側余白(上) */
-	padding-bottom: 5px;
-	/* 内側余白(下) */
-
-}
-
-/* ヘッダー、ナビゲーション内リンク */
-header a,
-nav a {
-	color: #ffffff;
-}
-
-/* ヘッダー内見出し */
-header h1 {
-	font-size: 20pt;
-	margin: 10px auto;
-}
-
-header p {
-
-	font-size: 10pt;
-}
-
-
-
-
-/* 仕切り線 */
-hr {
-	border-top: 2px dashed rgb(39, 39, 39);
-}
-
-/* メイン */
-main {
-	background-color: #FFFFFF;
-	min-height: 50px;
-	padding: 20px;
-}
-
-/* 表線 */
-table,
-th,
-td {
-	border-collapse: collapse;
-	border: 1px solid rgb(39, 39, 39);
-	padding: 10px 20px;
-	/* 上下10px、左右20pxの余白 */
-}
-
-/* 表 */
-table {
-	margin: 20px auto;
-	width: 100%;
-	/* 画面幅の100% */
-	max-width: 800px;
-	/* 最大幅を指定して大きくなりすぎないようにする設定 */
-}
-
-/* 表見出しセル */
-table th {
-	background: rgb(154, 154, 78);
-	color: #ffffff;
-}
-
-/* 送信ボタン */
-button {
-	margin: 15px;
-	padding: 5px 20px;
-	background-color: rgb(0, 0, 55);
-	color: #ffffff;
-	border: none;
-	width: 100px;
-	cursor: pointer;
-}
-
-/* 送信ボタン(マウスオーバー時) */
-button:hover {
-	background-color: rgb(88 187 216 / 64%);
-}
-
-/* エラーメッセージ */
-ul.error {
-	color: red;
-	list-style: none;
-	padding-left: 0;
-}
-
-/* リンクの通常状態のスタイル */
-a {
-	color: #0066cc;
-	/* 通常時のリンクの色 */
-
-}
-
-/*リンクマウスオーバー（ホバー）した時のスタイル */
-a:hover {
-	color: rgb(0, 0, 45);
-	/* ホバー時のリンクの色 */
-}
-
-footer {
-	background-color: rgb(192, 192, 131);
-	/* 背景色 */
-	color: rgb(36, 36, 36);
-	/* 文字色 */
-
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	background: rab(188, 188, 122);
-}
-
+/* ===== リンク hover ===== */	
+a:hover{
+  color:rgb(128, 0, 0);
+}					
+						
+/* ===== チェックボックスサイズ ===== */							
 input[type=checkbox] {
-	-ms-transform: scale(1.5, 1.5);
-	-webkit-transform: scale(1.5, 1.5);
-	transform: scale(1.5, 1.5);
-}
+  -ms-transform: scale(2, 2);
+  -webkit-transform: scale(2, 2);
+  transform: scale(2, 2);
+}	
 
+/* ========== */	
+.wrap{
+  display: flex;
+  flex-direction: column;
+  min-height: 20vh;
+}
+.footer{
+    margin-top: auto;
+}	
+
+				

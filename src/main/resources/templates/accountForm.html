@@ -8,26 +8,26 @@
 </head>
 
 <body>
-	<header th:replace="~{header}"></header>
-	<h3>お客様情報</h3>
+	<header><h1>新規ユーザー登録</h1></header> 
+	
 	<form action="/user/add" method="post">
 		
-		<ul th:if="${errorList}" class="error">
-			<li th:each="error:${errorList}" th:text="${error}"style="color: red;"></li>
-		</ul>
+		<div th:each="error:${errorList}">
+					<span th:text="${error}" style="color: red"></span>
+				</div>
 		
 
 		<table border="1">
 			<tr>
 				<th>お名前</th>
 				<td>
-					<input type="text" name="name" th:value="${name}">
+					<input type="text" class="text" name="name" th:value="${name}">
 				</td>
 			</tr>
 			<tr>
 				<th>パスワード</th>
 				<td>
-					<input type="text" name="password">
+					<input type="text" class="text" name="password">
 				</td>
 			</tr>
 		</table>

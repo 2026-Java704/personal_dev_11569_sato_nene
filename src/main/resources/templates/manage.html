@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+	<header th:replace="~{header}"></header>
+	<table border="1" class="medicine">
+		<tr>
+
+			<th>薬名</th>
+			<th>個数</th>
+			<th>タイミング</th>
+			<th>備考</th>
+		</tr>
+		<tr th:each="medicine:${medicineList}">
+
+
+			<td th:text="${medicine.name}"></td>
+			<td th:text="${medicine.count}"></td>
+			<td th:text="${medicine.time}"></td>
+			<td th:text="${medicine.note}"></td>
+
+
+		</tr>
+</body>
+
+
+</html>

@@ -11,20 +11,21 @@
 <body>
 	<header th:replace="~{header}"></header>
 		<form action="/medicine" method="get">
-			<input type="text" name="keyword" th:value="${keyword} "placeholder="薬名"> ｜
+			お薬検索：<input type="text" class="text" name="keyword" th:value="${keyword} "placeholder="薬名"> ｜
 
 			<button>検索</button>	
 		</form>
-	<table border="1">
+	<table border="1" class="medicine">
 		<tr>
 
 
-			<th>チェック</th>
-			<th>薬名</th>
-			<th>個数</th>
-			<th>備考</th>
-			<th>編集</th>
-			<th>削除</th>
+			<th >チェック</th>
+			<th >薬名</th>
+			<th >個数</th>
+			<th >日付</th>
+			<th >時間</th>
+			<th >備考</th>
+		
 
 		</tr>
 		
@@ -33,26 +34,17 @@
 			<td>
 				<form action="/medicine/check" method="post">
 					<input type="hidden" name="id" th:value="${medicine.id}">
-					<input type="checkbox" name="mcheck" th:checked="${medicine.m_check}" onchange="submit(this.form)"> 済
-
+					<input type="checkbox" name="mcheck" th:checked="${medicine.m_check}" onchange="submit(this.form)">　済 
+					
 					
 				</form>
 			</td>
 			<td th:text="${medicine.name}"></td>
 			<td th:text="${medicine.count}"></td>
-
+			<td th:text="${medicine.date}"></td>
+			<td th:text="${medicine.time}"></td>
 			<td th:text="${medicine.note}"></td>
-			<td>
-
-				<form th:action="@{/medicine/{id}/edit(id=${medicine.id})}" method="get">
-					<button>編集</button>
-				</form>
-			</td>
-			<td>
-				<form th:action="@{/medicine/{medicineId}/delete(medicineId=${medicine.id})}" onclick="return confirm('本当にタスクを削除してもよろしいですか？');"method="post">
-					<button>削除</button>
-				</form>
-			</td>
+			
 
 		</tr>
 	</table>

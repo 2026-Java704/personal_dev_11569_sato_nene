@@ -9,32 +9,37 @@
 </head>
 
 <body class="page-a">
-		<header th:replace="~{header}"></header>
+	<div class="login-container ">
+		<header><h1>ログイン</h1></header> 
 
-	<p></p>
 	
-	<ul th:if="${errorList}" class="error">
-		<li th:each="error:${errorList}" th:text="${error}"style="color: red;"></li>
-	</ul>
+
+	
 	<p th:if="${message}" th:text="${message}" style="color: red;"></p>
+
 
 	<form action="/login" method="post">
 		<div>
 			<label>ユーザー名：</label>
-			<input type="text" name="name" th:value="${name}">
+			<input type="text"  name="name"  th:value="${name}"placeholder="名前">
 		</div>
-
+<p></p>
 		<div>
 			<label>パスワード：</label>
-			<input type="password" name="password">
+			<input type="password" name="password"placeholder="パスワード">
 		</div>
+		
+<p></p>
 
 		<button class = "page-a" >ログイン</button>
 	</form>
+	
+<p></p>
 
-	<a href="/user/add">新規会員登録はこちら・・・</a>
+	<h5><a href="/user/add" class="addform">新規会員登録はこちら・・・</a></h5>
 	
 	<footer th:replace="~{footer}"></footer>
+	</div>
 </body>
 
 </html>

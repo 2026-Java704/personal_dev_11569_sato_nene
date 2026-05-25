@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +24,8 @@ public class Medicine {
 	private String note; // 薬情報
 	private Integer count; // 服薬回数
 	private Boolean m_check; // 服薬したかどうか
+	private LocalDate date;
+	private String time;
 
 	//	多対一の関係
 	@ManyToOne
@@ -37,12 +41,15 @@ public class Medicine {
 		this.user = user;
 	}
 
-	public Medicine(String name, String note, Integer count, Boolean m_check, User user) {
+	public Medicine(String name, String note, Integer count, Boolean m_check, User user, LocalDate date, String time) {
 		this.name = name;
 		this.note = note;
 		this.count = count;
 		this.m_check = m_check;
+
 		this.user = user;
+		this.date = date;
+		this.time = time;
 	}
 
 	public Medicine() {
@@ -86,6 +93,22 @@ public class Medicine {
 
 	public void setM_check(Boolean m_check) {
 		this.m_check = m_check;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 }

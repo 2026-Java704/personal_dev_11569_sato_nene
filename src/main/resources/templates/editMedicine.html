@@ -12,31 +12,55 @@
 	<header th:replace="~{header}"></header>
 
 	<form th:action="@{/medicine/{medicineId}/edit(medicineId=${medicine.id})}" method="post">
-		
-		
+
+
 		<table border="1">
 			<tr>
 				<th>薬名</th>
 				<td>
-					<input type="text" name="name" th:value="${medicine.name}">
+					<input type="text" class="text" name="name" th:value="${medicine.name}"
+						style="width: 200px; height: 30px;">
 				</td>
 			</tr>
-			
+
 			<tr>
 				<th>個数</th>
 				<td>
-					<input type="text" name="count" th:value="${medicine.count}">
+					<input type="number" class="text" name="count" th:value="${medicine.count}"
+						style="width: 200px; height: 30px;">
 				</td>
 			</tr>
 
 			<tr>
 				<th>備考</th>
 				<td>
-					<input type="text" name="note" th:value="${medicine.note}">
+					<input type="text" class="text" name="note" th:value="${medicine.note}"
+						style="width: 200px; height: 30px;">
+				</td>
+			</tr>
+			<tr>
+				<th>日付</th>
+				<td>
+					<input type="date" class="text" name="date" th:value="${medicine.date}"
+						style="width: 200px; height: 30px;">
+				</td>
+			</tr>
+			<tr>
+				<th>時間</th>
+				<td>
+					<input type="time" name="time" min="06:00" max="24:00" th:value="${medicine.time}">
 				</td>
 			</tr>
 		</table>
 		<button>更新</button>
+	</form>
+
+	<p></p>
+	<form action="/medicine" method="get">
+
+		<td>
+			<button>一覧に戻る</button>
+		</td>
 	</form>
 	<footer th:replace="~{footer}"></footer>
 </body>
