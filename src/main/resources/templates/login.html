@@ -9,22 +9,19 @@
 </head>
 
 <body class="page-a">
-	<header>
-		<h1>お薬チェッカー</a></h1>
-		
-	</header>
+		<header th:replace="~{header}"></header>
 
 	<p></p>
 	
 	<ul th:if="${errorList}" class="error">
-		<li th:each="error:${errorList}" th:text="${error}"></li>
+		<li th:each="error:${errorList}" th:text="${error}"style="color: red;"></li>
 	</ul>
 	<p th:if="${message}" th:text="${message}" style="color: red;"></p>
 
 	<form action="/login" method="post">
 		<div>
 			<label>ユーザー名：</label>
-			<input type="text" name="name">
+			<input type="text" name="name" th:value="${name}">
 		</div>
 
 		<div>
