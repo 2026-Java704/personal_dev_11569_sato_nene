@@ -29,7 +29,7 @@ public class Medicine {
 	private String timing; // 朝・昼・夜
 	private String mealTiming; // 食前・食後
 	@Column(name = "m_check")
-	private Boolean mCheck; // 服薬したかどうか
+	private Boolean checked; // 服薬したかどうか
 	private LocalDate date; // 飲み始め日
 	private LocalTime time; // 飲んだ時間
 
@@ -55,7 +55,7 @@ public class Medicine {
 		this.medicineType = medicineType;
 		this.timing = timing;
 		this.mealTiming = mealTiming;
-		this.mCheck = m_check;
+		this.checked = m_check;
 		this.user = user;
 		this.date = date;
 		this.time = time;
@@ -120,12 +120,12 @@ public class Medicine {
 		this.mealTiming = mealTiming;
 	}
 
-	public Boolean getMCheck() {
-		return mCheck;
+	public Boolean getChecked() {
+		return checked;
 	}
 
-	public void setMCheck(Boolean mCheck) {
-		this.mCheck = mCheck;
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
 	}
 
 	public LocalDate getDate() {

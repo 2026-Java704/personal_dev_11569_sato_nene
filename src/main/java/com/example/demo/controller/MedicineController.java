@@ -63,10 +63,10 @@ public class MedicineController {
 
 		List<Medicine> medicineList;
 		if (keyword.length() > 0) {
-			medicineList = medicineRepository.findByUser_IdAndMCheckFalseAndNameContainingOrderByDateAscIdAsc(account.getId(),
+			medicineList = medicineRepository.findByUser_IdAndCheckedFalseAndNameContainingOrderByDateAscIdAsc(account.getId(),
 					keyword);
 		} else {
-			medicineList = medicineRepository.findByUser_IdAndMCheckFalseOrderByDateAscIdAsc(account.getId());
+			medicineList = medicineRepository.findByUser_IdAndCheckedFalseOrderByDateAscIdAsc(account.getId());
 		}
 
 		model.addAttribute("keyword", keyword);
@@ -137,7 +137,7 @@ public class MedicineController {
 		medicine.setNote(note.trim());
 		medicine.setDate(date);
 		medicine.setTime(null);
-		medicine.setMCheck(false);
+		medicine.setChecked(false);
 		medicine.setUser(userData.get());
 
 		medicineRepository.save(medicine);
@@ -262,7 +262,7 @@ public class MedicineController {
 			return "redirect:/medicine";
 		}
 
-		medicine.setMCheck(mcheck);
+		medicine.setChecked(mcheck);
 		if (mcheck) {
 			// 済にした瞬間の時間を残せば履歴で見やすいので、ここで保存します。
 			medicine.setTime(LocalTime.now().withSecond(0).withNano(0));
@@ -284,7 +284,7 @@ public class MedicineController {
 			return "redirect:/login";
 		}
 
-		List<Medicine> medicineList = medicineRepository.findByUser_IdAndMCheckTrueOrderByTimeDescIdDesc(account.getId());
+		List<Medicine> medicineList = medicineRepository.findByUser_IdAndCheckedTrueOrderByTimeDescIdDesc(account.getId());
 		model.addAttribute("medicineList", medicineList);
 		return "manage";
 	}
