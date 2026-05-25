@@ -1,67 +1,97 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html>
 
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>薬を更新する</title>
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
 <body>
 	<header th:replace="~{header}"></header>
 
-	<form th:action="@{/medicine/{medicineId}/edit(medicineId=${medicine.id})}" method="post">
+	<h2>薬を更新する</h2>
 
+	<form th:action="@{/medicine/{medicineId}/edit(medicineId=${medicine.id})}" method="post">
+		<div th:each="error:${errorList}">
+			<span th:text="${error}" style="color: red"></span>
+		</div>
 
 		<table border="1">
 			<tr>
 				<th>薬名</th>
 				<td>
-					<input type="text" class="text" name="name" th:value="${medicine.name}"
-						style="width: 200px; height: 30px;">
+					<select name="selectedName" style="width: 220px; height: 30px;">
+						<option value="">100種類の候補から選ぶ</option>
+						<option th:each="medicineName : ${medicineNames}" th:value="${medicineName}" th:text="${medicineName}"
+							th:selected="${medicineName == medicine.name}"></option>
+					</select>
+					<br>
+					<input type="text" name="customName" placeholder="別の名前に変える時だけ入力"
+						style="width: 220px; height: 30px;">
 				</td>
 			</tr>
-
 			<tr>
 				<th>個数</th>
 				<td>
-					<input type="number" class="text" name="count" th:value="${medicine.count}"
-						style="width: 200px; height: 30px;">
+					<input type="number" name="count" th:value="${medicine.count}" min="1"
+						style="width: 220px; height: 30px;">
 				</td>
 			</tr>
-
+			<tr>
+				<th>薬の種類</th>
+				<td>
+					<select name="medicineType" style="width: 220px; height: 30px;">
+						<option value="">選んでください</option>
+						<option th:each="item : ${medicineTypes}" th:value="${item}" th:text="${item}"
+							th:selected="${item == medicine.medicineType}"></option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>飲むタイミング</th>
+				<td>
+					<select name="timing" style="width: 220px; height: 30px;">
+						<option value="">朝・昼・夜を選ぶ</option>
+						<option th:each="item : ${timingOptions}" th:value="${item}" th:text="${item}"
+							th:selected="${item == medicine.timing}"></option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>食前/食後</th>
+				<td>
+					<select name="mealTiming" style="width: 220px; height: 30px;">
+						<option value="">食前・食後を選ぶ</option>
+						<option th:each="item : ${mealTimingOptions}" th:value="${item}" th:text="${item}"
+							th:selected="${item == medicine.mealTiming}"></option>
+					</select>
+				</td>
+			</tr>
 			<tr>
 				<th>備考</th>
 				<td>
-					<input type="text" class="text" name="note" th:value="${medicine.note}"
-						style="width: 200px; height: 30px;">
+					<input type="text" name="note" th:value="${medicine.note}" style="width: 220px; height: 30px;">
 				</td>
 			</tr>
 			<tr>
-				<th>日付</th>
+				<th>飲み始め日</th>
 				<td>
-					<input type="date" class="text" name="date" th:value="${medicine.date}"
-						style="width: 200px; height: 30px;">
+					<input type="date" name="date" th:value="${medicine.date}" style="width: 220px; height: 30px;">
 				</td>
 			</tr>
 			<tr>
-				<th>時間</th>
-				<td>
-					<input type="time" name="time" min="06:00" max="24:00" th:value="${medicine.time}">
-				</td>
+				<th>飲んだ時間</th>
+				<td th:text="${medicine.time == null ? 'まだ未記録です' : medicine.time}"></td>
 			</tr>
 		</table>
 		<button>更新</button>
 	</form>
 
-	<p></p>
 	<form action="/medicine" method="get">
-
-		<td>
-			<button>一覧に戻る</button>
-		</td>
+		<button>薬管理に戻る</button>
 	</form>
+
 	<footer th:replace="~{footer}"></footer>
 </body>
 
