@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +23,31 @@ import com.example.demo.repository.UserRepository;
 @Controller
 public class MedicineController {
 
-	private final MedicineRepository medicineRepository; //medicineテーブル操作用
+	private final MedicineRepository medicineRepository;
 	private final Account account;
 	private final UserRepository userRepository;
+
+	private final List<String> medicineMasterList = Arrays.asList(
+			"アセトアミノフェン", "イブプロフェン", "ロキソプロフェン", "カロナール", "ロキソニン",
+			"バファリン", "ノーシン", "セデス", "タイレノール", "ナロンエース",
+			"プレコール", "パブロン", "ベンザブロック", "ルル", "エスタック",
+			"トラネキサム酸", "ムコダイン", "ビソルボン", "カルボシステイン", "アンブロキソール",
+			"クラリスロマイシン", "アモキシシリン", "セフカペン", "レボフロキサシン", "ジスロマック",
+			"タミフル", "イナビル", "リレンザ", "ゾフルーザ", "アレグラ",
+			"クラリチン", "ジルテック", "アレロック", "タリオン", "ザイザル",
+			"モンテルカスト", "オノン", "ムコスタ", "ガスター", "タケキャブ",
+			"ネキシウム", "パリエット", "ブスコパン", "ガスモチン", "プリンペラン",
+			"ビオフェルミン", "ミヤBM", "ラックビー", "正露丸", "ストッパ",
+			"ラキソベロン", "マグミット", "酸化マグネシウム", "センノシド", "コーラック",
+			"メジコン", "アスベリン", "フスコデ", "リンデロン", "フルナーゼ",
+			"オルパタジン", "ポララミン", "PL顆粒", "葛根湯", "麻黄湯",
+			"五苓散", "補中益気湯", "六君子湯", "小青竜湯", "芍薬甘草湯",
+			"ユベラ", "メチコバール", "チョコラBB", "ビタメジン", "ハイチオール",
+			"リリカ", "トラムセット", "ボルタレン", "モーラステープ", "ロキソニンテープ",
+			"ヒルドイド", "リンデロンVG", "ゲンタシン", "アズノール", "イソジン",
+			"オロパタジン", "ラベプラゾール", "フェキソフェナジン", "カルボプラチン", "メトホルミン",
+			"アムロジピン", "カンデサルタン", "メインテート", "フロセミド", "ワルファリン",
+			"エリキュース", "ジャディアンス", "フォシーガ", "クレストール", "アトルバスタチン");
 
 	public MedicineController(MedicineRepository medicineRepository, Account account, UserRepository userRepository) {
 		this.medicineRepository = medicineRepository;
@@ -30,171 +55,281 @@ public class MedicineController {
 		this.userRepository = userRepository;
 	}
 
-	//	 薬一覧表示
+	//管理画面
 	@GetMapping("/medicine")
 	public String index(@RequestParam(defaultValue = "") String keyword, Model model) {
-
-		//		未ログイン時、ログイン画面に戻す。
 		if (account.getId() == null) {
 			return "redirect:/login";
 		}
-		List<Medicine> medicineList = null;
+
+		//薬検索
+		List<Medicine> medicineList;
 		if (keyword.length() > 0) {
-			// medicineテーブルを商品名で部分一致検索
-			medicineList = medicineRepository.findByUserIdAndNameContaining(account.getId(), keyword);
+			medicineList = medicineRepository.findByUser_IdAndCheckedFalseAndNameContainingOrderByDateAscIdAsc(
+					account.getId(),
+					keyword);
 		} else {
-			medicineList = medicineRepository.findByUserIdOrderById(account.getId());
+			medicineList = medicineRepository.findByUser_IdAndCheckedFalseOrderByDateAscIdAsc(account.getId());
 		}
 
-		//	 全薬の一覧を取得 
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("medicineList", medicineList);
 		return "medicine";
 	}
 
-	//	薬登録画面の表示
+	//薬追加画面
 	@GetMapping("/medicine/add")
-	public String create() {
-
-		//		未ログイン時、ログイン画面に戻す。
+	public String create(Model model) {
 		if (account.getId() == null) {
 			return "redirect:/login";
 		}
-		return "addMedicine";
 
+		setFormOptions(model);
+		model.addAttribute("medicineNames", medicineMasterList);
+		return "addMedicine";
 	}
 
-	//
-	//薬登録処理
 	@PostMapping("/medicine/add")
 	public String store(
-			@RequestParam(defaultValue = "") String name,
-			@RequestParam(defaultValue = "") Integer count,
+			@RequestParam(defaultValue = "") String selectedName,
+			@RequestParam(defaultValue = "") String customName,
+			@RequestParam(required = false) Integer count,
+			@RequestParam(defaultValue = "") String medicineType,
+			@RequestParam(defaultValue = "") String timing,
+			@RequestParam(defaultValue = "") String mealTiming,
 			@RequestParam(defaultValue = "") String note,
-			@RequestParam(defaultValue = "") LocalDate date,
-			@RequestParam(defaultValue = "") String time,
-			Model model) {
-		List<String> errorList = new ArrayList<>();
-
-		if (name.length() == 0) {
-			errorList.add("薬名は必須です。");
-		}
-
-		if (count == null) {
-			errorList.add("個数は必須です。");
-		}
-		if (date == null) {
-			errorList.add("日付は必須です。");
-		}
-		if (errorList.size() > 0) {
-
-			model.addAttribute("errorList", errorList);
-			model.addAttribute("name", name);
-			model.addAttribute("count", count);
-			model.addAttribute("date", date);
-			return "addMedicine";
-
-		}
-
-		Medicine medicine = new Medicine();//新しい Medicineオブジェクト薬データを入れる箱
-
-		medicine.setName(name);//フォームから受け取った name を、Medicineオブジェク
-		medicine.setCount(count);
-		medicine.setNote(note);
-		medicine.setDate(date);
-		medicine.setTime(time);
-		medicine.setM_check(false);
-
-		//ログイン中のユーザーをセット
-		User loginUser = userRepository.findById(account.getId()).get();
-		medicine.setUser(loginUser);
-
-		medicineRepository.save(medicine); // DB保存
-		return "redirect:/medicine";
-
-	}
-
-	//	更新画面表示
-
-	@GetMapping("/medicine/{id}/edit")
-	public String edit(
-			@PathVariable Integer id,
+			@RequestParam(required = false) LocalDate date,
 			Model model) {
 
-		//		未ログイン時、ログイン画面に戻す。
 		if (account.getId() == null) {
 			return "redirect:/login";
 		}
-		Medicine medicine = medicineRepository.findById(id).get();
+
+		String name = selectedName;
+		if (customName.trim().length() > 0) {
+			// ここは手入力があったらそっち優先でええやろ、という素直な分岐です。
+			name = customName.trim();
+		}
+
+		List<String> errorList = validateMedicine(name, count, medicineType, timing, mealTiming, date);
+		if (errorList.size() > 0) {
+			model.addAttribute("errorList", errorList);
+			setFormOptions(model);
+			model.addAttribute("medicineNames", medicineMasterList);
+			model.addAttribute("selectedName", selectedName);
+			model.addAttribute("customName", customName);
+			model.addAttribute("count", count);
+			model.addAttribute("medicineType", medicineType);
+			model.addAttribute("timing", timing);
+			model.addAttribute("mealTiming", mealTiming);
+			model.addAttribute("note", note);
+			model.addAttribute("date", date);
+			return "addMedicine";
+		}
+
+		Optional<User> userData = userRepository.findById(account.getId());
+		if (userData.isEmpty()) {
+			return "redirect:/login";
+		}
+
+		Medicine medicine = new Medicine();
+		medicine.setName(name);
+		medicine.setCount(count);
+		medicine.setMedicineType(medicineType);
+		medicine.setTiming(timing);
+		medicine.setMealTiming(mealTiming);
+		medicine.setNote(note.trim());
+		medicine.setDate(date);
+		medicine.setTime(null);
+		medicine.setChecked(false);
+		medicine.setUser(userData.get());
+
+		medicineRepository.save(medicine);
+		return "redirect:/medicine";
+	}
+
+	//薬更新画面
+	@GetMapping("/medicine/{id}/edit")
+	public String edit(@PathVariable Integer id, Model model) {
+		if (account.getId() == null) {
+			return "redirect:/login";
+		}
+
+		Optional<Medicine> medicineData = medicineRepository.findById(id);
+		if (medicineData.isEmpty()) {
+			return "redirect:/medicine";
+		}
+
+		Medicine medicine = medicineData.get();
 		if (!medicine.getUser().getId().equals(account.getId())) {
 			return "redirect:/medicine";
 		}
 
+		setFormOptions(model);
+		model.addAttribute("medicineNames", medicineMasterList);
 		model.addAttribute("medicine", medicine);
 		return "editMedicine";
-
 	}
 
-	//	更新処理
+	//薬更新処理
 	@PostMapping("/medicine/{id}/edit")
 	public String update(
 			@PathVariable Integer id,
-			@RequestParam String name,
-			@RequestParam Integer count,
-			@RequestParam String note,
-			@RequestParam LocalDate date) {
+			@RequestParam(defaultValue = "") String selectedName,
+			@RequestParam(defaultValue = "") String customName,
+			@RequestParam(required = false) Integer count,
+			@RequestParam(defaultValue = "") String medicineType,
+			@RequestParam(defaultValue = "") String timing,
+			@RequestParam(defaultValue = "") String mealTiming,
+			@RequestParam(defaultValue = "") String note,
+			@RequestParam(required = false) LocalDate date,
+			Model model) {
 
-		Medicine medicine = medicineRepository.findById(id).get();
+		if (account.getId() == null) {
+			return "redirect:/login";
+		}
 
-		medicine.setName(name);
-		medicine.setCount(count);
-		medicine.setNote(note);
-		medicine.setDate(date);
+		Optional<Medicine> medicineData = medicineRepository.findById(id);
+		if (medicineData.isEmpty()) {
+			return "redirect:/medicine";
+		}
 
-		medicineRepository.save(medicine);
-
-		return "redirect:/medicine";
-	}
-
-	//	削除処理
-	@PostMapping("/medicine/{id}/delete")
-	public String delete(@PathVariable Integer id) {
-		Medicine medicine = medicineRepository.findById(id).get();
+		Medicine medicine = medicineData.get();
 		if (!medicine.getUser().getId().equals(account.getId())) {
 			return "redirect:/medicine";
 		}
 
-		medicineRepository.deleteById(id);//medicineテーブルから削除
-		return "redirect:/medicine";
-
-	}
-
-	//	チェックボタン処理
-	@PostMapping("/medicine/check")
-	public String check(
-			@RequestParam Integer id, //薬テーブルid
-			@RequestParam(required = false) boolean mcheck) {
-		{
-			Medicine medicine = medicineRepository.findById(id).get();
-
-			medicine.setM_check(mcheck);
-			//
-			medicineRepository.save(medicine);
-			return "redirect:/medicine";
+		String name = selectedName;
+		if (customName.trim().length() > 0) {
+			name = customName.trim();
 		}
-		//
+
+		List<String> errorList = validateMedicine(name, count, medicineType, timing, mealTiming, date);
+		if (errorList.size() > 0) {
+			model.addAttribute("errorList", errorList);
+			setFormOptions(model);
+			model.addAttribute("medicineNames", medicineMasterList);
+			medicine.setName(name);
+			medicine.setCount(count);
+			medicine.setMedicineType(medicineType);
+			medicine.setTiming(timing);
+			medicine.setMealTiming(mealTiming);
+			medicine.setNote(note.trim());
+			medicine.setDate(date);
+			model.addAttribute("medicine", medicine);
+			return "editMedicine";
+		}
+
+		medicine.setName(name);
+		medicine.setCount(count);
+		medicine.setMedicineType(medicineType);
+		medicine.setTiming(timing);
+		medicine.setMealTiming(mealTiming);
+		medicine.setNote(note.trim());
+		medicine.setDate(date);
+
+		medicineRepository.save(medicine);
+		return "redirect:/medicine";
 	}
 
-	//	 薬一覧表示
-	@GetMapping("/manage")
-	public String index() {
-
-		//		未ログイン時、ログイン画面に戻す。
+	//薬削除処理
+	@PostMapping("/medicine/{id}/delete")
+	public String delete(@PathVariable Integer id) {
 		if (account.getId() == null) {
 			return "redirect:/login";
 		}
-		return "manage";
 
+		Optional<Medicine> medicineData = medicineRepository.findById(id);
+		if (medicineData.isEmpty()) {
+			return "redirect:/medicine";
+		}
+
+		Medicine medicine = medicineData.get();
+		if (!medicine.getUser().getId().equals(account.getId())) {
+			return "redirect:/medicine";
+		}
+
+		medicineRepository.deleteById(id);
+		return "redirect:/medicine";
 	}
 
+	//チェックボタン処理	
+	@PostMapping("/medicine/check")
+	public String check(@RequestParam Integer id, @RequestParam(defaultValue = "false") boolean mcheck) {
+
+		//未ログイン時
+		if (account.getId() == null) {
+			return "redirect:/login";
+		}
+
+		Optional<Medicine> medicineData = medicineRepository.findById(id);
+		if (medicineData.isEmpty()) {
+			return "redirect:/medicine";
+		}
+
+		Medicine medicine = medicineData.get();
+		if (!medicine.getUser().getId().equals(account.getId())) {
+			return "redirect:/medicine";
+		}
+
+		medicine.setChecked(mcheck);
+		if (mcheck) {
+			// 済にした瞬間の時間を残せば履歴で見やすいので、ここで保存します。
+			medicine.setTime(LocalTime.now().withSecond(0).withNano(0));
+		} else {
+			medicine.setTime(null);
+		}
+
+		medicineRepository.save(medicine);
+
+		if (mcheck) {
+			return "redirect:/manage";
+		}
+		return "redirect:/medicine";
+	}
+
+	//服用履歴画面
+	@GetMapping("/manage")
+	public String manage(Model model) {
+		if (account.getId() == null) {
+			return "redirect:/login";
+		}
+
+		List<Medicine> medicineList = medicineRepository
+				.findByUser_IdAndCheckedTrueOrderByTimeDescIdDesc(account.getId());
+		model.addAttribute("medicineList", medicineList);
+		return "manage";
+	}
+
+	private List<String> validateMedicine(String name, Integer count, String medicineType, String timing,
+			String mealTiming, LocalDate date) {
+		List<String> errorList = new ArrayList<>();
+
+		if (name.trim().length() == 0) {
+			errorList.add("薬名は選ぶか入力してください。");
+		}
+		if (count == null || count <= 0) {
+			errorList.add("個数は1以上で入れてください。");
+		}
+		if (medicineType.length() == 0) {
+			errorList.add("処方薬か市販薬かを選んでください。");
+		}
+		if (timing.length() == 0) {
+			errorList.add("朝・昼・夜を選んでください。");
+		}
+		if (mealTiming.length() == 0) {
+			errorList.add("食前か食後かを選んでください。");
+		}
+		if (date == null) {
+			errorList.add("飲み始め日を入れてください。");
+		}
+
+		return errorList;
+	}
+
+	private void setFormOptions(Model model) {
+		model.addAttribute("medicineTypes", Arrays.asList("処方薬", "市販薬"));
+		model.addAttribute("timingOptions", Arrays.asList("朝", "昼", "夜"));
+		model.addAttribute("mealTimingOptions", Arrays.asList("食前", "食後"));
+	}
 }

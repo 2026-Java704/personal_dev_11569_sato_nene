@@ -1,34 +1,52 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html>
 
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>服用履歴</title>
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
 <body>
 	<header th:replace="~{header}"></header>
+
+	<h2>薬服用一覧</h2>
+
 	<table border="1" class="medicine">
 		<tr>
-
+			<th>済を外す</th>
 			<th>薬名</th>
 			<th>個数</th>
+			<th>服用時間</th>
+			<th>薬の種類</th>
 			<th>タイミング</th>
+			<th>食前/食後</th>
 			<th>備考</th>
 		</tr>
+
 		<tr th:each="medicine:${medicineList}">
-
-
+			<td>
+				<form action="/medicine/check" method="post">
+					<input type="hidden" name="id" th:value="${medicine.id}">
+					<input type="hidden" name="mcheck" value="false">
+					<input type="checkbox" checked onchange="submit(this.form)"> 戻す
+				</form>
+			</td>
 			<td th:text="${medicine.name}"></td>
 			<td th:text="${medicine.count}"></td>
 			<td th:text="${medicine.time}"></td>
+			<td th:text="${medicine.medicineType}"></td>
+			<td th:text="${medicine.timing}"></td>
+			<td th:text="${medicine.mealTiming}"></td>
 			<td th:text="${medicine.note}"></td>
-
-
 		</tr>
-</body>
+	</table>
 
+	<form action="/medicine" method="get">
+		<button>薬管理に戻る</button>
+	</form>
+
+	<footer th:replace="~{footer}"></footer>
+</body>
 
 </html>

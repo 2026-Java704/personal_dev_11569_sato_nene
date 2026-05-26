@@ -4,59 +4,75 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>薬管理</title>
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
 <body>
 	<header th:replace="~{header}"></header>
-		<form action="/medicine" method="get">
-			お薬検索：<input type="text" class="text" name="keyword" th:value="${keyword} "placeholder="薬名"> ｜
 
-			<button>検索</button>	
-		</form>
+	<h2>薬管理画面</h2>
+
+
+	<form action="/medicine" method="get">
+		お薬検索：<input type="text" name="keyword" th:value="${keyword} " placeholder="薬名"> ｜
+
+		<button>検索</button>
+	</form>
+
 	<table border="1" class="medicine">
 		<tr>
 
-
-			<th >チェック</th>
-			<th >薬名</th>
-			<th >個数</th>
-			<th >日付</th>
-			<th >時間</th>
-			<th >備考</th>
-		
+			<th>済チェック</th>
+			<th>薬名</th>
+			<th>個数</th>
+			<th>薬の種類</th>
+			<th>タイミング</th>
+			<th>食前/食後</th>
+			<th>飲み始め日</th>
+			<th>備考</th>
+			<th>更新</th>
+			<th>削除</th>
 
 		</tr>
-		
+
 		<tr th:each="medicine:${medicineList}">
 
 			<td>
 				<form action="/medicine/check" method="post">
 					<input type="hidden" name="id" th:value="${medicine.id}">
-					<input type="checkbox" name="mcheck" th:checked="${medicine.m_check}" onchange="submit(this.form)">　済 
-					
-					
+					<input type="hidden" name="mcheck" value="true">
+					<input type="checkbox" onchange="submit(this.form)">　済
+
 				</form>
 			</td>
+
 			<td th:text="${medicine.name}"></td>
 			<td th:text="${medicine.count}"></td>
+			<td th:text="${medicine.medicineType}"></td>
+			<td th:text="${medicine.timing}"></td>
+			<td th:text="${medicine.mealTiming}"></td>
 			<td th:text="${medicine.date}"></td>
-			<td th:text="${medicine.time}"></td>
 			<td th:text="${medicine.note}"></td>
-			
-
+			<td>
+				<form th:action="@{/medicine/{medicineId}/edit(medicineId=${medicine.id})}" method="get">
+					<button>更新</button>
+				</form>
+			</td>
+			<td>
+				<form th:action="@{/medicine/{medicineId}/delete(medicineId=${medicine.id})}" method="post">
+					<button onclick="return confirm('この薬を削除しますか？');">削除</button>
+				</form>
+			</td>
 		</tr>
 	</table>
-	<form action="/medicine/add" method="get">
 
-		<td>
-			<button>追加する</button>
-		</td>
+	<form action="/medicine/add" method="get">
+		<button>薬を追加する</button>
 	</form>
+	
+	
 	<footer th:replace="~{footer}"></footer>
 </body>
-
-
 
 </html>

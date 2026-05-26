@@ -1,7 +1,9 @@
 package com.example.demo.entity;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,10 +24,14 @@ public class Medicine {
 
 	private String name; // 薬名
 	private String note; // 薬情報
-	private Integer count; // 服薬回数
-	private Boolean m_check; // 服薬したかどうか
-	private LocalDate date;
-	private String time;
+	private Integer count; // 個数
+	private String medicineType; // 処方薬か市販薬か
+	private String timing; // 朝・昼・夜
+	private String mealTiming; // 食前・食後
+	@Column(name = "m_check")
+	private Boolean checked; // 服薬したかどうか
+	private LocalDate date; // 飲み始め日
+	private LocalTime time; // 飲んだ時間
 
 	//	多対一の関係
 	@ManyToOne
@@ -41,15 +47,18 @@ public class Medicine {
 		this.user = user;
 	}
 
-	public Medicine(String name, String note, Integer count, Boolean m_check, User user, LocalDate date, String time) {
+	public Medicine(String name, String note, Integer count, String medicineType, String timing, String mealTiming,
+			Boolean checked, LocalDate date, LocalTime time, User user) {
 		this.name = name;
 		this.note = note;
 		this.count = count;
-		this.m_check = m_check;
-
-		this.user = user;
+		this.medicineType = medicineType;
+		this.timing = timing;
+		this.mealTiming = mealTiming;
+		this.checked = checked;
 		this.date = date;
 		this.time = time;
+		this.user = user;
 	}
 
 	public Medicine() {
@@ -87,12 +96,36 @@ public class Medicine {
 		this.count = count;
 	}
 
-	public Boolean getM_check() {
-		return m_check;
+	public String getMedicineType() {
+		return medicineType;
 	}
 
-	public void setM_check(Boolean m_check) {
-		this.m_check = m_check;
+	public void setMedicineType(String medicineType) {
+		this.medicineType = medicineType;
+	}
+
+	public String getTiming() {
+		return timing;
+	}
+
+	public void setTiming(String timing) {
+		this.timing = timing;
+	}
+
+	public String getMealTiming() {
+		return mealTiming;
+	}
+
+	public void setMealTiming(String mealTiming) {
+		this.mealTiming = mealTiming;
+	}
+
+	public Boolean getChecked() {
+		return checked;
+	}
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
 	}
 
 	public LocalDate getDate() {
@@ -103,11 +136,11 @@ public class Medicine {
 		this.date = date;
 	}
 
-	public String getTime() {
+	public LocalTime getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(LocalTime time) {
 		this.time = time;
 	}
 
