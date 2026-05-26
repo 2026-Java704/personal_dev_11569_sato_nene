@@ -7,8 +7,9 @@
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
+<div class="login-container ">
 <body>
-	<header><h1>新規ユーザー登録</h1></header> 
+	<header class = "sukima"><h2>お薬チェッカー </h2><h2>新規登録</h2></header> 
 	
 	<form action="/user/add" method="post">
 		
@@ -17,24 +18,22 @@
 				</div>
 		
 
-		<table border="1">
-			<tr>
-				<th>お名前</th>
-				<td>
-					<input type="text" class="text" name="name" th:value="${name}">
-				</td>
-			</tr>
-			<tr>
-				<th>パスワード</th>
-				<td>
-					<input type="text" class="text" name="password">
-				</td>
-			</tr>
-		</table>
+					<div>
+							<label>ユーザー名：</label>
+							<input type="text"  name="name"  th:value="${name}"placeholder="名前" style="width: 220px; height: 35px;">
+						</div>
+				<p></p>
+						<div>
+							<label>パスワード：</label>
+							<input type="password" name="password"placeholder="パスワード"style="width: 220px; height: 35px;">
+						</div>
+						
+						<p></p>
 		<button>登録</button>
 	</form>
 	</main>
 	<footer th:replace="~{footer}"></footer>
+	</div>
 </body>
 
 </html>

@@ -3,7 +3,9 @@
 	<header class="header">
 		<div class="contents">
 			<h1>お薬チェッカー</h1>
-			<p>--- [[${@account.name}]]さんがログイン中 --- </p><br>
+			<p>--- [[${@account.name}]]さんがログイン中 --- </p>
+			
+			<div class="aaa">
 			<script>
 				//今日の日付データを変数に格納
 				//変数は"today"とする
@@ -20,15 +22,16 @@
 				//年・月・日・曜日を書き出す
 				document.write(year + "年" + month + "月" + day + "日 " + week_ja[week] + "曜日");
 			</script>
+		
 
 
 			<a href="/logout" onclick="return confirm('本当にログアウトしますか？');">ログアウト</a>
+			
 		</div>
 
+		</div>
 
-		<form action="/medicine" method="get">
-			<button>薬管理</button>
-		</form>
+		
 		<form action="/manage" method="get">
 			<button>服用履歴</button>
 		</form>

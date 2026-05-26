@@ -27,15 +27,16 @@
 							th:selected="${medicineName == medicine.name}"></option>
 					</select>
 					<br>
+					<p></p>
 					<input type="text" name="customName" placeholder="別の名前に変える時だけ入力"
-						style="width: 220px; height: 30px;">
+						style="width: 215px; height: 30px;">
 				</td>
 			</tr>
 			<tr>
 				<th>個数</th>
 				<td>
 					<input type="number" name="count" th:value="${medicine.count}" min="1"
-						style="width: 220px; height: 30px;">
+						style="width: 210px; height: 30px;">
 				</td>
 			</tr>
 			<tr>
@@ -71,13 +72,13 @@
 			<tr>
 				<th>備考</th>
 				<td>
-					<input type="text" name="note" th:value="${medicine.note}" style="width: 220px; height: 30px;">
+					<input type="text" name="note" th:value="${medicine.note}" style="width: 215px; height: 30px;">
 				</td>
 			</tr>
 			<tr>
 				<th>飲み始め日</th>
 				<td>
-					<input type="date" name="date" th:value="${medicine.date}" style="width: 220px; height: 30px;">
+					<input type="date" name="date" th:value="${medicine.date}" style="width: 215px; height: 30px;">
 				</td>
 			</tr>
 			<tr>

@@ -1,9 +1,12 @@
 body {						
-background-color: rgb(255, 255, 198); /* 明るい緑 */						
+background-color: rgb(255, 255, 219); /* 明るい緑 */						
 text-align: center;						
 min-width: 900px;						
-margin:	0 0 0 0 ;
-font-family: "Yu Gothic", sans-serif;						
+margin:0px ;
+font-family: "Yu Gothic", sans-serif;	
+font-size: 19px;
+font-family: sans-serif;
+					
 }						
 /* ===== ログイン画面用コンテナ ===== */						
 .login-container {						
@@ -17,18 +20,26 @@ padding-bottom: 20px;
 header,						
 nav,						
 footer {						
-background-color:rgb(146, 157, 188);						
-color: #ffffff;						
+background-color:rgb(185, 185, 185);						
+color: rgb(46, 46, 46);						
 padding-top: 5px;						
-padding-bottom: 5px;
+padding-bottom: 15px;
 margin-bottom: 10px
+			
+}
 						
-}						
 /* ===== ヘッダー、ナビ内リンク ===== */						
 header a,						
 nav a {						
-color: #ffffff;						
-}						
+color: rgb(46, 46, 46);						
+}	
+
+.aaa{
+	position: fixed; 
+	  top: 15px;          
+	  right: 15px;   
+	  font-size: 17px;
+}				
 /* ===== 見出し ===== */						
 header h1 {						
 font-size: 32pt; /* 大きく */						
@@ -59,7 +70,7 @@ min-width: 800px;
 }						
 /* ===== 表ヘッダー ===== */						
 table th {						
-background-color:rgb(146, 157, 188);						
+background-color:rgb(185, 185, 185);						
 color: #ffffff;						
 text-align: center;						
 padding: 10px;						
@@ -76,10 +87,15 @@ padding: 5px 20px;
 background-color: #e5857b;						
 color: #ffffff;						
 border: none;						
-width: 150px;						
+width: 200px;
+height:3em;						
 cursor: pointer;
-border-radius: 5px;						
-}						
+border-radius: 7px;	
+margin-top: 10px;
+font-size: 17px;     
+}
+				
+						
 /* ===== ボタン hover ===== */						
 button:hover {						
 background-color: rgb(244, 193, 193);						
@@ -87,7 +103,7 @@ background-color: rgb(244, 193, 193);
 
 /* ===== リンク hover ===== */	
 a:hover{
-  color:rgb(128, 0, 0);
+  color:rgb(255, 0, 0);
 }					
 						
 /* ===== チェックボックスサイズ ===== */							
@@ -104,7 +120,12 @@ input[type=checkbox] {
   min-height: 20vh;
 }
 .footer{
-    margin-top: auto;
+    margin-top:auto;
 }	
 
-				
+.sukima{
+	margin-bottom: 70px;
+}
+
+
+			

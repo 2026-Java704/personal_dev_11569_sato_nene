@@ -8,9 +8,10 @@
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
-<body class="page-a">
+<body >
 	<div class="login-container ">
-		<header><h1>ログイン</h1></header> 
+		<header class = "sukima">
+			<h2>お薬チェッカー</h2><h2>ログイン</h2></header> 
 
 	
 
@@ -21,12 +22,12 @@
 	<form action="/login" method="post">
 		<div>
 			<label>ユーザー名：</label>
-			<input type="text"  name="name"  th:value="${name}"placeholder="名前">
+			<input type="text"  name="name"  th:value="${name}"placeholder="名前" style="width: 220px; height: 35px;">
 		</div>
 <p></p>
 		<div>
 			<label>パスワード：</label>
-			<input type="password" name="password"placeholder="パスワード">
+			<input type="password" name="password"placeholder="パスワード"style="width: 220px; height: 35px;">
 		</div>
 		
 <p></p>
