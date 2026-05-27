@@ -23,7 +23,7 @@ footer {
 background-color:rgb(185, 185, 185);						
 color: rgb(46, 46, 46);						
 padding-top: 5px;						
-padding-bottom: 15px;
+padding-bottom: 5px;
 margin-bottom: 10px
 			
 }
@@ -127,5 +127,9 @@ input[type=checkbox] {
 	margin-bottom: 70px;
 }
 
-
+/*.okusuri{*/
+/*	background-color:rgb(209, 209, 209);*/
+/*	padding-top: 5px;						*/
+/*	padding-bottom: 15px;*/
+/*}*/
 			
